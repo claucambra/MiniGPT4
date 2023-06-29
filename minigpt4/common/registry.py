@@ -39,12 +39,6 @@ class Registry:
             ), "All builders must inherit BaseDatasetBuilder class, found {}".format(
                 builder_cls
             )
-            if name in cls.mapping["builder_name_mapping"]:
-                raise KeyError(
-                    "Name '{}' already registered for {}.".format(
-                        name, cls.mapping["builder_name_mapping"][name]
-                    )
-                )
             cls.mapping["builder_name_mapping"][name] = builder_cls
             return builder_cls
 
@@ -68,12 +62,6 @@ class Registry:
             assert issubclass(
                 task_cls, BaseTask
             ), "All tasks must inherit BaseTask class"
-            if name in cls.mapping["task_name_mapping"]:
-                raise KeyError(
-                    "Name '{}' already registered for {}.".format(
-                        name, cls.mapping["task_name_mapping"][name]
-                    )
-                )
             cls.mapping["task_name_mapping"][name] = task_cls
             return task_cls
 
@@ -97,12 +85,6 @@ class Registry:
             assert issubclass(
                 model_cls, BaseModel
             ), "All models must inherit BaseModel class"
-            if name in cls.mapping["model_name_mapping"]:
-                raise KeyError(
-                    "Name '{}' already registered for {}.".format(
-                        name, cls.mapping["model_name_mapping"][name]
-                    )
-                )
             cls.mapping["model_name_mapping"][name] = model_cls
             return model_cls
 
@@ -126,12 +108,7 @@ class Registry:
             assert issubclass(
                 processor_cls, BaseProcessor
             ), "All processors must inherit BaseProcessor class"
-            if name in cls.mapping["processor_name_mapping"]:
-                raise KeyError(
-                    "Name '{}' already registered for {}.".format(
-                        name, cls.mapping["processor_name_mapping"][name]
-                    )
-                )
+
             cls.mapping["processor_name_mapping"][name] = processor_cls
             return processor_cls
 
@@ -150,12 +127,6 @@ class Registry:
         """
 
         def wrap(lr_sched_cls):
-            if name in cls.mapping["lr_scheduler_name_mapping"]:
-                raise KeyError(
-                    "Name '{}' already registered for {}.".format(
-                        name, cls.mapping["lr_scheduler_name_mapping"][name]
-                    )
-                )
             cls.mapping["lr_scheduler_name_mapping"][name] = lr_sched_cls
             return lr_sched_cls
 
@@ -174,12 +145,6 @@ class Registry:
         """
 
         def wrap(runner_cls):
-            if name in cls.mapping["runner_name_mapping"]:
-                raise KeyError(
-                    "Name '{}' already registered for {}.".format(
-                        name, cls.mapping["runner_name_mapping"][name]
-                    )
-                )
             cls.mapping["runner_name_mapping"][name] = runner_cls
             return runner_cls
 
@@ -197,8 +162,6 @@ class Registry:
             from minigpt4.common.registry import registry
         """
         assert isinstance(path, str), "All path must be str."
-        if name in cls.mapping["paths"]:
-            raise KeyError("Name '{}' already registered.".format(name))
         cls.mapping["paths"][name] = path
 
     @classmethod
